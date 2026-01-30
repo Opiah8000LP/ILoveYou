@@ -4,13 +4,80 @@
 <meta charset="UTF-8">
 <title>I LOVE YOU ;3</title>
 
-<link rel="stylesheet" href="style.css">
-<link rel="stylesheet" href="shake.css">
+<style>
+    html, body {
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        background-color: #0b0b0f;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+        user-select: none;
+        cursor: pointer;
+    }
 
-<script src="script.js" defer></script>
+    #text {
+        font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+        font-weight: 900;
+        font-size: min(18vw, 18vh);
+        letter-spacing: 0.05em;
+        display: flex;
+        gap: 0.3em;
+
+        background: linear-gradient(
+            270deg,
+            #ff4fa3,
+            #ff77d9,
+            #ff9de2,
+            #c77dff,
+            #9b5de5,
+            #ff4fa3
+        );
+        background-size: 800% 800%;
+        animation: gradientFlow 12s ease-in-out infinite;
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+
+    #you {
+        display: inline-block;
+        transition: transform 0.35s ease;
+    }
+
+    #you.zoom {
+        transform: scale(1.25);
+    }
+
+    @keyframes gradientFlow {
+        0%   { background-position: 0% 50%; }
+        50%  { background-position: 100% 50%; }
+        100% { background-position: 0% 50%; }
+    }
+</style>
 </head>
 
 <body>
-    <div id="love">I LOVE YOU ;3</div>
+
+<div id="text">
+    <span>I LOVE</span>
+    <span id="you">YOU ;3</span>
+</div>
+
+<script>
+    const you = document.getElementById("you");
+
+    document.addEventListener("click", () => {
+        you.classList.add("zoom");
+
+        setTimeout(() => {
+            you.classList.remove("zoom");
+        }, 350);
+    });
+</script>
+
 </body>
 </html>
