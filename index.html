@@ -10,15 +10,18 @@
         padding: 0;
         width: 100%;
         height: 100%;
-        background: #0b0b0f;
+        background-color: #0b0b0f;
         display: flex;
         align-items: center;
         justify-content: center;
         overflow: hidden;
         user-select: none;
+        cursor: pointer;
     }
 
     #love {
+        pointer-events: auto;
+
         font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
         font-weight: 900;
         font-size: min(18vw, 18vh);
@@ -29,21 +32,24 @@
             270deg,
             #ff4fa3,
             #ff77d9,
+            #ff9de2,
             #c77dff,
             #9b5de5,
             #ff4fa3
         );
-        background-size: 600% 600%;
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
+        background-size: 800% 800%;
 
-        animation: gradientFlow 10s ease-in-out infinite;
-        transition: transform 0.2s ease;
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+
+        animation: gradientFlow 12s ease-in-out infinite;
+        will-change: transform;
     }
 
     @keyframes gradientFlow {
-        0% { background-position: 0% 50%; }
-        50% { background-position: 100% 50%; }
+        0%   { background-position: 0% 50%; }
+        50%  { background-position: 100% 50%; }
         100% { background-position: 0% 50%; }
     }
 
@@ -66,13 +72,15 @@
     <div id="love">I LOVE YOU ;3</div>
 
     <script>
-        const text = document.getElementById('love');
+        const text = document.getElementById("love");
 
-        document.addEventListener('click', () => {
-            text.classList.remove('shake');
-            void text.offsetWidth; // reset animation
-            text.classList.add('shake');
-        });
+        function triggerShake() {
+            text.classList.remove("shake");
+            void text.offsetWidth; // force reflow
+            text.classList.add("shake");
+        }
+
+        document.addEventListener("click", triggerShake);
     </script>
 </body>
 </html>
