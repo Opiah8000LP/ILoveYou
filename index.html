@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>I LOVE YOU ;3</title>
+<title>I LOVE YOU</title>
 
 <style>
     html, body {
@@ -24,7 +24,7 @@
         font-size: min(18vw, 18vh);
         letter-spacing: 0.05em;
         display: flex;
-        gap: 0.3em;
+        gap: 0.35em;
 
         background: linear-gradient(
             270deg,
@@ -43,13 +43,21 @@
         color: transparent;
     }
 
-    #you {
+    #you span {
         display: inline-block;
-        transition: transform 0.35s ease;
     }
 
-    #you.zoom {
-        transform: scale(1.25);
+    .shake {
+        animation: sway 0.45s ease-in-out;
+    }
+
+    @keyframes sway {
+        0%   { transform: translateX(0); }
+        20%  { transform: translateX(-4px); }
+        40%  { transform: translateX(4px); }
+        60%  { transform: translateX(-3px); }
+        80%  { transform: translateX(3px); }
+        100% { transform: translateX(0); }
     }
 
     @keyframes gradientFlow {
@@ -64,18 +72,23 @@
 
 <div id="text">
     <span>I LOVE</span>
-    <span id="you">YOU ;3</span>
+    <span id="you">
+        <span>Y</span><span>O</span><span>U</span>
+    </span>
 </div>
 
 <script>
-    const you = document.getElementById("you");
+    const letters = document.querySelectorAll("#you span");
 
     document.addEventListener("click", () => {
-        you.classList.add("zoom");
+        letters.forEach((letter, index) => {
+            letter.classList.remove("shake");
+            void letter.offsetWidth;
 
-        setTimeout(() => {
-            you.classList.remove("zoom");
-        }, 350);
+            setTimeout(() => {
+                letter.classList.add("shake");
+            }, index * 60); // staggered sway
+        });
     });
 </script>
 
